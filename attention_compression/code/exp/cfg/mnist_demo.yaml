@@ -1,0 +1,16 @@
+GPU: "0" # GPU index to be used
+MODEL_PATH: "/../../model/demo" # here is for output models trained during exp
+DATA_PATH: "/../../data/mnist" # dataset path
+TMP_PATH: "/../../tmp/demo" # not used now
+LOG_PATH: "/../../log/demo"  # store the experiments log
+TRAIN_PATH: "/../../train/demo" # not used now
+TEST_ONLY: false # only test or not
+TRAIN:
+  finetune: false
+  symbol_name: "" # if not finetune, we need to give the model structure
+  pretrained_model_path: '/../../pretrained_model/transformer/XX' # if finetune, give the pretrained model path (include model name)
+  model_name: 'demo_model' #output model name
+  a: 0
+TEST:
+  b: 0
+  c: 'string'

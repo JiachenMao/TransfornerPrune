@@ -1,0 +1,55 @@
+GPU: "0" # GPU index to be used
+MODEL_PATH: "/../../model/transformer/eng2ger/finetune" # here is for output models trained during exp
+DATA_PATH: "/../../data/translate_ende_wmt32k" # dataset path
+TMP_PATH: "/../../tmp/translate_ende_wmt32k" # store temp data for dataset
+LOG_PATH: "/../../log/transformer/eng2ger/finetune"  # store the experiments log
+# TRAIN_PATH: "/../../train/demo" # not used now
+TEST_ONLY: false # only test or not
+PROBLEM: 'translate_ende_wmt32k' # problem name for generating dataset
+VOCAB_NAME: 'vocab.translate_ende_wmt32k.32768.subwords' 
+MODEL_NAME: 'transformer'
+HPARAMS_SET: 'transformer_base'
+TRAIN:
+  finetune: true
+  symbol_name: "" # if not finetune, we need to give the model structure
+  pretrained_model_name: 'transformer_ende_test'
+  pretrained_model_path: '/../../pretrained_model/transformer/' # if finetune, give the pretrained model path (include model name)
+  out_model_name: 'transformer_finetune' #output model name
+  a: 0
+TEST:
+  b: 0
+  c: 'string'
+
+
+
+# English-German: --problem=translate_ende_wmt32k
+# English-French: --problem=translate_enfr_wmt32k
+# English-Czech: --problem=translate_encs_wmt32k
+# English-Chinese: --problem=translate_enzh_wmt32k
+# English-Vietnamese: --problem=translate_envi_iwslt32k
+
+# There are many models available in Tensor2Tensor
+# registry.list_models()
+# ['resnet50',
+#  'lstm_seq2seq',
+#  'transformer_encoder',
+#  'attention_lm',
+#  'vanilla_gan',
+#  'transformer',
+#  'gene_expression_conv',
+#  'transformer_moe',
+#  'attention_lm_moe',
+#  'transformer_revnet',
+#  'lstm_seq2seq_attention',
+#  'shake_shake',
+#  'transformer_ae',
+#  'diagonal_neural_gpu',
+#  'xception',
+#  'aligned',
+#  'multi_model',
+#  'neural_gpu',
+#  'slice_net',
+#  'byte_net',
+#  'cycle_gan',
+#  'transformer_sketch',
+#  'blue_net']

@@ -1,0 +1,30 @@
+
+import tensorflow as tf
+
+def activation_sparsity(x, winner_rate):
+  """Neuron-wise magnitude pruning."""
+  # winner_rate = tf.constant(1, dtype=x.dtype)
+  # winner_rate = tf.math.subtract(winner_rate, sparsity)
+  # sparsity = tf.cast(sparsity, dtype=x.dtype)
+  shape = tf.shape(x)
+  x_reshape = tf.reshape(x, [shape[0], -1]) # NHWC --> N x HWC
+  # find the threshold 
+  top_k = tf.round(tf.multiply(tf.cast(tf.shape(x_reshape)[-1], dtype=x.dtype), winner_rate))
+  top_k = tf.cast(top_k, dtype=tf.int32)
+  values, _ = tf.nn.top_k(x_reshape, k=top_k, sorted=True)
+
+  # threshold = tf.reshape(values[:, -1], [-1, 1, 1, 1])
+  dim_x = len(x.get_shape())
+  if dim_x == 4:
+    threshold = tf.reshape(values[:, -1], [-1, 1, 1, 1])
+  if dim_x == 3:
+    threshold = tf.reshape(values[:, -1], [-1, 1, 1])
+  if dim_x == 2:
+    threshold = tf.reshape(values[:, -1], [-1, 1])
+  # generate mask 
+  binary_mask = tf.less_equal(threshold, x)
+  binary_mask = tf.cast(binary_mask, dtype=x.dtype)
+  return tf.multiply(x, binary_mask)
+
+tf.enable_eager_execution()
+x
